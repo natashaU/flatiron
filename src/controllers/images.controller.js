@@ -24,7 +24,17 @@ ImagesController.prototype.destroyImageLiveEventListener = function(){
 };
 
 ImagesController.render = function(image) {
-  $('#images').append(image.imageEl());
+  var imageNode = $(`#image-${image.id}`);
+  if(imageNode.length) {
+    // Image already rendered. Render latest comment
+    console.log(image);
+    var lastComment = image.comments[image.comments.length - 1];
+    console.log(lastComment);
+    commentsController.render(lastComment);
+  } else {
+    // Render image for the first time
+    $('#images').append(image.imageEl());
+  }
 }
 
 ImagesController.prototype.init = function() {
