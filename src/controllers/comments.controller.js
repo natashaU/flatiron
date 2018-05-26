@@ -10,22 +10,24 @@ class CommentsController {
   }
 
   render(comment) {
-    var commentsNode = $(`#comments-${comment.image.id}`);
+    let commentsNode = $(`#comments-${comment.image.id}`);
     commentsNode.append(comment.commentEl());
   }
 
   addCommentFormListener() {
     // create comment form listener code here
     // Add listner to every form
-    $('#images form').on('submit', function(e){
+    $('#images form').on('submit', function (e) {
       // Prevent HTTP submit
       e.preventDefault();
-      var imageId = $(this).attr('data-id');
-      var image = Image.all[imageId];
-      var commentNode = $(`#comment-description-${imageId}`);
-      var commentText = commentNode.val();
-      var newComment = new Comment(image, commentText);
-      // TODO clear commentNode value to make room for next comment
+      // get image id
+      let imageId = $(this).attr('data-id');
+      let image = Image.all[imageId];
+      let commentNode = $(`#comment-description-${imageId}`);
+      let commentText = commentNode.val();
+      let newComment = new Comment(image, commentText);
+      // clear commentNode value to make room for next comment
+      commentNode.val("")
       ImagesController.render(image);
     });
   }
